@@ -11,22 +11,15 @@ const merkleRoot = "0xabd9fe4b4874c6846546c0cbbb959d1007a814fc8a04835284e403e49b
 
 const kaco_shiden = "0xb12c13e66ade1f72f71834f2fc5082db8c091358";
 const merkleRoot20111207 = "0x5bc6cac604b108c960834821e143fa765f7852238aff5816137770813b4d54d3";
+const v2Address = "0x478D879Dbfbe7f6F66Ad73622d7cb25aD9b1b605";
 
 async function main() {
   // We get the contract to deploy
   const KacoAirDrop = await ethers.getContractFactory("KacoAirDropV2");
-  const airDrop = await KacoAirDrop.deploy(kaco_shiden, merkleRoot20111207);
+  const airDrop = await KacoAirDrop.attach(v2Address)
 
-  await airDrop.deployed();
+  console.log("airDrop:", await airDrop.owner());
 
-  console.log("airDrop deployed to:", airDrop.address);
-
-  // const airdrop = "0x06351909a335fD23e2EFd93bEe7e2047332455fE";
-  // await hre.run("verify:verify", {
-  //   address: airdrop,
-  //   contract: "contracts/KacoAirDrop.sol:KacoAirDrop",
-  //   constructorArguments: [kaco, merkleRoot]
-  // });
 }
 
 // We recommend this pattern to be able to use async/await everywhere
